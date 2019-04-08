@@ -14,23 +14,25 @@ A native C++ Node module for querying and subscribing to filesystem events. Used
 ## Example
 
 ```javascript
-const watcher = require('@parcel/watcher');
-const path = require('path');
+(async function()) {
+  const watcher = require('@parcel/watcher');
+  const path = require('path');
 
-// Subscribe to events
-let subscription = await watcher.subscribe(process.cwd(), (err, events) => {
-  console.log(events);
-});
+  // Subscribe to events
+  let subscription = await watcher.subscribe(process.cwd(), (err, events) => {
+    console.log(events);
+  });
 
-// later on...
-await subscription.unsubscribe();
+  // later on...
+  await subscription.unsubscribe();
 
-// Get events since some saved snapshot in the past
-let snapshotPath = path.join(process.cwd(), 'snapshot.txt');
-let events = await watcher.getEventsSince(process.cwd(), snapshotPath);
+  // Get events since some saved snapshot in the past
+  let snapshotPath = path.join(process.cwd(), 'snapshot.txt');
+  let events = await watcher.getEventsSince(process.cwd(), snapshotPath);
 
-// Save a snapshot for later
-await watcher.writeSnapshot(process.cwd(), snapshotPath);
+  // Save a snapshot for later
+  await watcher.writeSnapshot(process.cwd(), snapshotPath);
+})()
 ```
 
 ## Watching
